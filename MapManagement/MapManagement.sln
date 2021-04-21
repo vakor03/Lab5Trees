@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapManagement.MapLib", "MapManagement.MapLib\MapManagement.MapLib.csproj", "{C8BF143E-A133-4D9D-9D0C-27B30D13CEE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapManagement.ConsoleApp", "MapManagement.ConsoleApp\MapManagement.ConsoleApp.csproj", "{BE88936E-4F85-4A69-A03A-A2E24D6E51C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapManagement.LocationLib", "MapManagement.LocationLib\MapManagement.LocationLib.csproj", "{7CCE0904-CF96-443B-AE0F-F8B8154ED124}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8BF143E-A133-4D9D-9D0C-27B30D13CEE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8BF143E-A133-4D9D-9D0C-27B30D13CEE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8BF143E-A133-4D9D-9D0C-27B30D13CEE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8BF143E-A133-4D9D-9D0C-27B30D13CEE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE88936E-4F85-4A69-A03A-A2E24D6E51C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE88936E-4F85-4A69-A03A-A2E24D6E51C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE88936E-4F85-4A69-A03A-A2E24D6E51C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE88936E-4F85-4A69-A03A-A2E24D6E51C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CCE0904-CF96-443B-AE0F-F8B8154ED124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CCE0904-CF96-443B-AE0F-F8B8154ED124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CCE0904-CF96-443B-AE0F-F8B8154ED124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CCE0904-CF96-443B-AE0F-F8B8154ED124}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
