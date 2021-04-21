@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MapManagement.LocationLib
+namespace MapManagement.MapLib
 {
     public class Location
     {
