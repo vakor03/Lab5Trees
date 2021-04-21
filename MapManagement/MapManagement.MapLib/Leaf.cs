@@ -1,6 +1,4 @@
-﻿using MapManagement.LocationLib;
-
-namespace MapManagement.MapLib
+﻿namespace MapManagement.MapLib
 {
     public class Leaf : Node
     {
@@ -16,6 +14,11 @@ namespace MapManagement.MapLib
         public override string ToString()
         {
             return _location.ToString();
+        }
+
+        public override string GetNodeType()
+        {
+            return "Leaf";
         }
     }
 }

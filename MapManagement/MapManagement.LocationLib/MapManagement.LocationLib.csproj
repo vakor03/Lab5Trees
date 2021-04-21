@@ -4,4 +4,8 @@
         <TargetFramework>net48</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MapManagement.MapLib\MapManagement.MapLib.csproj" />
+    </ItemGroup>
+
 </Project>

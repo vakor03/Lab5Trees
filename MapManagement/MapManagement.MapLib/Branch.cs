@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using MapManagement.LocationLib;
 
 namespace MapManagement.MapLib
 {
@@ -9,13 +8,13 @@ namespace MapManagement.MapLib
         private static int _minChild = 4;
         private List<Node> _childs;
         private Branch _mother;
-        private Coords[] _coords;
+        private Rectangle _rectangle;
 
-        public Branch(List<Node> childs, Branch mother, Coords[] coords)
+        public Branch(List<Node> childs, Branch mother, Rectangle rectangle)
         {
             _childs = childs;
             _mother = mother;
-            _coords = coords;
+            _rectangle = rectangle;
         }
 
         public Branch()
@@ -23,10 +22,10 @@ namespace MapManagement.MapLib
             _childs = new List<Node>();
         }
 
-        public Branch(Branch mother, Coords[] coords)
+        public Branch(Branch mother, Rectangle rectangle)
         {
             _mother = mother;
-            _coords = coords;
+            _rectangle = rectangle;
         }
 
         public void AddChild(Location location)
@@ -49,13 +48,18 @@ namespace MapManagement.MapLib
             _childs = new List<Node>();
             for (int i = 0; i < 2; i++)
             {
-                Branch childBranch = new Branch(this, _coords);
+                Branch childBranch = new Branch(this, _rectangle);
                 for (int j = 0; j < _maxChild/2; j++)
                 {
                     childBranch.AddChild(childs[j]);
                 }
                 _childs.Add(childBranch);
             }
+        }
+
+        public override string GetNodeType()
+        {
+            return "Branch";
         }
 
         public List<Node> GetChilds()

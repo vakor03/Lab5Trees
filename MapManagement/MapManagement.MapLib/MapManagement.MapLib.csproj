@@ -5,8 +5,4 @@
         <RootNamespace>MapManagement.Lib</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\MapManagement.LocationLib\MapManagement.LocationLib.csproj" />
-    </ItemGroup>
-
 </Project>
