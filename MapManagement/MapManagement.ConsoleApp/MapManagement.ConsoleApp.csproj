@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net48</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MapManagement.LocationLib\MapManagement.LocationLib.csproj" />
+      <ProjectReference Include="..\MapManagement.MapLib\MapManagement.MapLib.csproj" />
+    </ItemGroup>
+
+</Project>
