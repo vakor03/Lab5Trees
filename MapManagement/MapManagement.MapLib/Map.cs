@@ -15,10 +15,6 @@ namespace MapManagement.MapLib
         public void AddLocation(Location location)
         {
             Branch destinationBranch = ChooseSubtree(location.Longitude, location.Latitude);
-            if (destinationBranch.Equals(_root))
-            {
-                Console.WriteLine("Hallo");
-            }
             destinationBranch.AddChild(location);
         }
 
@@ -109,8 +105,6 @@ namespace MapManagement.MapLib
                     }
                 }
             }
-
-            return null;
         }
 
         private Branch CheckSmallestOverlap(List<Node> nodes)

@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapManagement.ConsoleApp", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapManagement.LocationLib", "MapManagement.LocationLib\MapManagement.LocationLib.csproj", "{7CCE0904-CF96-443B-AE0F-F8B8154ED124}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapManagement.Tests", "MapManagement.Tests\MapManagement.Tests.csproj", "{DAB33309-240D-4108-8486-1D3D30820C3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{7CCE0904-CF96-443B-AE0F-F8B8154ED124}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CCE0904-CF96-443B-AE0F-F8B8154ED124}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CCE0904-CF96-443B-AE0F-F8B8154ED124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAB33309-240D-4108-8486-1D3D30820C3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAB33309-240D-4108-8486-1D3D30820C3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAB33309-240D-4108-8486-1D3D30820C3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAB33309-240D-4108-8486-1D3D30820C3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

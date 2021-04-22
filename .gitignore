@@ -22,3 +22,9 @@ MapManagement/MapManagement.ConsoleApp/obj/
 MapManagement/MapManagement.LocationLib/obj/Debug/net48/
 
 MapManagement/MapManagement.LocationLib/obj/
+
+MapManagement/MapManagement.Tests/bin/Debug/net5.0/
+
+*.user
+
+MapManagement/MapManagement.Tests/obj/
