@@ -9,6 +9,12 @@ namespace MapManagement.MapLib
         private List<Node> _childs;
         private Branch _mother;
         private Rectangle _rectangle;
+        public Rectangle Rectangle
+        {
+            get => _rectangle;
+        }
+        public double RectangleShape => _rectangle.Shape;
+        
 
         public Branch(List<Node> childs, Branch mother, Rectangle rectangle)
         {
@@ -59,6 +65,10 @@ namespace MapManagement.MapLib
 
         public override string GetNodeType()
         {
+            if (_childs.Count==0 || _childs[0].GetNodeType()=="Leaf")
+            {
+                return "PreBranch";
+            }
             return "Branch";
         }
 

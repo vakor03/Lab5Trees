@@ -12,8 +12,15 @@ namespace MapManagement.ConsoleApp
         {
             string path = @"../../../../Locations/Locations.csv";
             Map map = new Map();
-            ReadFile readFile = new ReadFile(path, map);
-            readFile.Read();
+            // ReadFile readFile = new ReadFile(path, map);
+            // readFile.Read();
+            // Branch branch = new Branch();
+            for (int i = 0; i < 5; i++)
+            {
+                map.AddLocation(new Location("50,60659;30,45436;shop;car;Авто Масло;;"));
+            }
+            
+            // Console.WriteLine(branch.GetChilds()[0].GetNodeType());
         }
     }
 }
