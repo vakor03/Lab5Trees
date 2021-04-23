@@ -5,7 +5,7 @@ namespace MapManagement.LocationLib
 {
     public class ReadFile
     {
-        private string _path;
+        private string _path { get; }
         private Map _map;
         
         public ReadFile(string path, Map map)

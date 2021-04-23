@@ -32,6 +32,7 @@ namespace MapManagement.Tests
             
             Assert.AreEqual(expected,actual);
         }
+        
         [DataRow(7,2,0)]
         [DataRow(9,2,-2)]
         [DataRow(9,4,-5)]

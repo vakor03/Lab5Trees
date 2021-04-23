@@ -74,13 +74,14 @@ namespace MapManagement.MapLib
             double xMax = Math.Min(rectangle1._xMax, rectangle2._xMax);
             double yMin = Math.Max(rectangle1._yMin, rectangle2._yMin);
             double yMax = Math.Min(rectangle1._yMax, rectangle2._yMax);
-            
+
             if (rectangle1._xMax <= rectangle2._xMin && rectangle2._xMax <= rectangle1._xMin ||
                 rectangle1._yMax <= rectangle2._yMin && rectangle2._yMax <= rectangle1._yMin)
             {
                 return 0;
             }
-           return new Rectangle(xMin, xMax, yMin, yMax).Shape;
+
+            return new Rectangle(xMin, xMax, yMin, yMax).Shape;
         }
 
         public static double CheckShapeChange(Rectangle firstRectangle, Rectangle secondRectangle, double xDot,
