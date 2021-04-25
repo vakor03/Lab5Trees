@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MapManagement.MapLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -32,6 +33,27 @@ namespace MapManagement.Tests
             var a = branch.GetChilds().Select(a=> (Leaf)a).ToArray();
             Array.Sort(a,new LeafComparerY());
             Assert.AreEqual(a[0].Location.x,34);
+        }
+
+        
+        [TestMethod]
+        public void MinMarginTest()
+        {
+            Branch branch = new Branch();
+            branch.AddChild(new Location("2;1;;;;;"));
+            branch.AddChild(new Location("2;4;;;;;"));
+            branch.AddChild(new Location("3;2;;;;;"));
+            branch.AddChild(new Location("5;5;;;;;"));
+            branch.AddChild(new Location("2;8;;;;;"));
+            branch.AddChild(new Location("7;10;;;;;"));
+            branch.AddChild(new Location("4;12;;;;;"));
+            branch.AddChild(new Location("5;13;;;;;"));
+            branch.AddChild(new Location("6;14;;;;;"));
+            branch.AddChild(new Location("7;15;;;;;"));
+
+            double S = branch.FindMinMarginOdDivision(new LeafComparerX());
+            Assert.AreEqual(S,36);
+            
         }
     }
 }

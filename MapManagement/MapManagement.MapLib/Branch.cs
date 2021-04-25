@@ -66,22 +66,29 @@ namespace MapManagement.MapLib
 
         public void AddChild(Location location)
         {
-            _childs.Add(new Leaf(this, location));
+            AddChild(new Leaf(this, location));
+        }
+
+        public void AddChild(Node node)
+        {
+            _childs.Add(node);
             if (_childs.Count > _maxChild)
             {
                 DivideBranch();
             }
         }
 
-        public void AddChild(Node node)
-        {
-            _childs.Add(node);
-        }
-
         private void DivideBranch()
         {
             char axis = ChooseSplitAxis();
-            
+            if (axis=='x')
+            {
+                
+            }
+            else
+            {
+                
+            }
         }
 
         private void InitRectangle(double x, double y)
@@ -91,18 +98,17 @@ namespace MapManagement.MapLib
 
         private char ChooseSplitAxis()
         {
-            if (FindMinMarginOdDivision(new LeafComparerX())<FindMinMarginOdDivision(new LeafComparerY()))
+            if (FindMinMarginOdDivision(new LeafComparerX()) < FindMinMarginOdDivision(new LeafComparerY()))
             {
-               return 'x'; 
+                return 'x';
             }
             else
             {
                 return 'y';
             }
-            
         }
 
-        private double FindMinMarginOdDivision(IComparer<Leaf> comparer)
+        public double FindMinMarginOdDivision(IComparer<Leaf> comparer)
         {
             int k = _maxChild - 2 * _minChild + 2;
             Leaf[] sorted = GetChilds().Select(node => (Leaf) node).ToArray();
@@ -112,12 +118,12 @@ namespace MapManagement.MapLib
             {
                 Rectangle rectangle1 = new Rectangle();
                 Rectangle rectangle2 = new Rectangle();
-                for (int j = 0; j < _minChild - 1 + k; j++)
+                for (int j = 0; j < _minChild - 1 + i; j++)
                 {
                     rectangle1.AddDot(sorted[j].Location.x, sorted[j].Location.y);
                 }
 
-                for (int j = _minChild - 1 + k; j < sorted.Length; j++)
+                for (int j = _minChild - 1 + i; j < sorted.Length; j++)
                 {
                     rectangle2.AddDot(sorted[j].Location.x, sorted[j].Location.y);
                 }
