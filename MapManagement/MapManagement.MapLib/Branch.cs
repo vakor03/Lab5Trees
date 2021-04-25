@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MapManagement.MapLib
 {
@@ -49,7 +51,7 @@ namespace MapManagement.MapLib
         {
             return _childs;
         }
-        
+
         public void RefindShape(double x, double y)
         {
             if (_rectangle == null)
@@ -58,10 +60,10 @@ namespace MapManagement.MapLib
             }
             else
             {
-                Rectangle.ChangeRectangle(x, y);
+                Rectangle.AddDot(x, y);
             }
         }
-        
+
         public void AddChild(Location location)
         {
             _childs.Add(new Leaf(this, location));
@@ -78,18 +80,8 @@ namespace MapManagement.MapLib
 
         private void DivideBranch()
         {
-            List<Node> childs = new List<Node>(_childs);
-            _childs = new List<Node>();
-            for (int i = 0; i < 2; i++)
-            {
-                Branch childBranch = new Branch(this, _rectangle);
-                for (int j = 0; j < _maxChild / 2; j++)
-                {
-                    childBranch.AddChild(childs[j]);
-                }
-
-                _childs.Add(childBranch);
-            }
+            char axis = ChooseSplitAxis();
+            
         }
 
         private void InitRectangle(double x, double y)
@@ -99,11 +91,72 @@ namespace MapManagement.MapLib
 
         private char ChooseSplitAxis()
         {
-            for (int i = 0; i < 2; i++)
+            if (FindMinMarginOdDivision(new LeafComparerX())<FindMinMarginOdDivision(new LeafComparerY()))
             {
-                
+               return 'x'; 
             }
-            return 'x';
+            else
+            {
+                return 'y';
+            }
+            
+        }
+
+        private double FindMinMarginOdDivision(IComparer<Leaf> comparer)
+        {
+            int k = _maxChild - 2 * _minChild + 2;
+            Leaf[] sorted = GetChilds().Select(node => (Leaf) node).ToArray();
+            Array.Sort(sorted, comparer);
+            double[] S = new double[2 * k];
+            for (int i = 1; i <= k; i++)
+            {
+                Rectangle rectangle1 = new Rectangle();
+                Rectangle rectangle2 = new Rectangle();
+                for (int j = 0; j < _minChild - 1 + k; j++)
+                {
+                    rectangle1.AddDot(sorted[j].Location.x, sorted[j].Location.y);
+                }
+
+                for (int j = _minChild - 1 + k; j < sorted.Length; j++)
+                {
+                    rectangle2.AddDot(sorted[j].Location.x, sorted[j].Location.y);
+                }
+
+                S[i - 1] = rectangle1.Margin + rectangle2.Margin;
+            }
+
+            for (int i = 1; i <= k; i++)
+            {
+                Rectangle rectangle1 = new Rectangle();
+                Rectangle rectangle2 = new Rectangle();
+                for (int j = 0; j < _minChild - 1 + k; j++)
+                {
+                    rectangle1.AddDot(sorted[_maxChild - 1 - j].Location.x, sorted[_maxChild - 1 - j].Location.y);
+                }
+
+                for (int j = _minChild - 1 + k; j < sorted.Length; j++)
+                {
+                    rectangle2.AddDot(sorted[_maxChild - 1 - j].Location.x, sorted[_maxChild - 1 - j].Location.y);
+                }
+
+                S[k + i - 1] = rectangle1.Margin + rectangle2.Margin;
+            }
+
+            double MinOfArray(double[] array)
+            {
+                double min = array[0];
+                for (int i = 1; i < array.Length; i++)
+                {
+                    if (array[i] < min)
+                    {
+                        min = array[i];
+                    }
+                }
+
+                return min;
+            }
+
+            return MinOfArray(S);
         }
     }
 }

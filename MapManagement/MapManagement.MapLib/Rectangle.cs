@@ -9,15 +9,16 @@ namespace MapManagement.MapLib
             get { return (_xMax - _xMin) * (_yMax - _yMin); }
         }
 
+        public double Margin
+        {
+            get => ((_xMax - _xMin) + (_yMax - _yMin)) * 2;
+        }
+
         private double _xMin;
         private double _xMax;
         private double _yMin;
         private double _yMax;
-
-
-        public Rectangle()
-        {
-        }
+        private int _numbDots;
 
         public Rectangle(double x1, double x2, double y1, double y2)
         {
@@ -42,8 +43,23 @@ namespace MapManagement.MapLib
                 _yMin = y2;
                 _yMax = y1;
             }
+
+            _numbDots = 2;
         }
 
+        public Rectangle()
+        {
+            _numbDots = 0;
+        }
+
+        public Rectangle(double x, double y)
+        {
+            _xMax = x;
+            _xMin = x;
+            _yMax = y;
+            _yMin = y;
+            _numbDots = 1;
+        }
 
         public static double CheckOverlapChange(Rectangle firstRectangle, Rectangle secondRectangle, double xDot,
             double yDot)
@@ -108,7 +124,7 @@ namespace MapManagement.MapLib
             return CheckShapeChange(secondRectangle, xDot, yDot) - CheckShapeChange(firstRectangle, xDot, yDot);
         }
 
-        public static double CheckShapeChange(Rectangle rectangle, double xDot, double yDot)
+        private static double CheckShapeChange(Rectangle rectangle, double xDot, double yDot)
         {
             double xMin = rectangle._xMin;
             double xMax = rectangle._xMax;
@@ -136,25 +152,37 @@ namespace MapManagement.MapLib
             return shapeChange;
         }
 
-        public void ChangeRectangle(double xDot, double yDot)
+        public void AddDot(double xDot, double yDot)
         {
-            if (xDot < _xMin)
-            {
-                _xMin = xDot;
-            }
-            else if (xDot > _xMax)
+            
+            if (_numbDots == 0)
             {
                 _xMax = xDot;
-            }
-
-            if (yDot < _yMin)
-            {
+                _xMin = xDot;
+                _yMax = yDot;
                 _yMin = yDot;
             }
-            else if (yDot > _yMax)
+            else
             {
-                _yMax = yDot;
+                if (xDot < _xMin)
+                {
+                    _xMin = xDot;
+                }
+                else if (xDot > _xMax)
+                {
+                    _xMax = xDot;
+                }
+
+                if (yDot < _yMin)
+                {
+                    _yMin = yDot;
+                }
+                else if (yDot > _yMax)
+                {
+                    _yMax = yDot;
+                }
             }
+            _numbDots++;
         }
     }
 }

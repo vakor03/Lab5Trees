@@ -18,20 +18,20 @@ namespace MapManagement.Tests
             Assert.AreEqual(expectedShape,actualShape);
         }
 
-        [DataRow(0,3,0,3,2,2, 0)]
-        [DataRow(0,3,0,3,-1,2, 3)]
-        [DataRow(0,3,0,3,4,2, 3)]
-        [DataRow(0,3,0,3,2,4, 3)]
-        [DataRow(0,3,0,3,4,4, 7)]
-        [DataTestMethod]
-        public void CheckShapeChangeTest(double xMin, double xMax, double yMin, double yMax, double xDot, double yDot, double expected)
-        {
-            Rectangle rectangle = new Rectangle(xMin, xMax, yMin, yMax);
-
-            double actual = Rectangle.CheckShapeChange(rectangle,xDot,yDot);
-            
-            Assert.AreEqual(expected,actual);
-        }
+        // [DataRow(0,3,0,3,2,2, 0)]
+        // [DataRow(0,3,0,3,-1,2, 3)]
+        // [DataRow(0,3,0,3,4,2, 3)]
+        // [DataRow(0,3,0,3,2,4, 3)]
+        // [DataRow(0,3,0,3,4,4, 7)]
+        // [DataTestMethod]
+        // public void CheckShapeChangeTest(double xMin, double xMax, double yMin, double yMax, double xDot, double yDot, double expected)
+        // {
+        //     Rectangle rectangle = new Rectangle(xMin, xMax, yMin, yMax);
+        //
+        //     double actual = Rectangle.CheckShapeChange(rectangle,rectangle,xDot,yDot);
+        //     
+        //     Assert.AreEqual(expected,actual);
+        // }
         
         [DataRow(7,2,0)]
         [DataRow(9,2,-2)]
@@ -70,17 +70,28 @@ namespace MapManagement.Tests
             Assert.AreEqual(null, branch.Rectangle);
         }
         
-        [DataRow(0,0,1,1,1)]
+        [DataRow(0,0,0,0,0)]
         [DataRow(1,0,1,0,0)]
         [DataRow(1,0,2,0,0)]
         [DataTestMethod]
-        public void RectangleInitTest(double x1, double y1, double x2, double y2, double expected)
+         public void RectangleInitTest(double x1, double y1, double x2, double y2, double expected)
+         {
+             Branch branch = new Branch();
+             branch.RefindShape(x1, y1);
+             branch.RefindShape(x2, y2);
+             Assert.AreEqual(new Rectangle(x1,x2,y1,y2).Shape,branch.Rectangle.Shape,expected);
+         }
+    
+        [DataRow(0,0,2,2,0)]
+        [DataRow(0,0,0,2,4)]
+        [DataRow(0,2,0,2,8)]
+        [DataTestMethod]
+        public void MarginTest(double x1,double x2, double y1, double y2, double expected)
         {
-            Branch branch = new Branch();
-            branch.RefindShape(x1, y1);
-            branch.RefindShape(x2, y2);
-            
-            Assert.AreEqual(new Rectangle(x1,x2,y1,y2).Shape,branch.Rectangle.Shape,expected);
+            Rectangle rectangle = new Rectangle();
+            rectangle.AddDot(x1,y1);
+            rectangle.AddDot(x2,y2);
+            Assert.AreEqual(expected, rectangle.Margin);
         }
         
         
