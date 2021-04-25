@@ -38,10 +38,10 @@
                     Branch childBranch2 = (Branch) currentBranch.GetChilds()[1];
                     if (childBranch1.GetNodeType() == "PreBranch")
                     {
-                        if (Rectangle.CheckOverlapChange(childBranch1.Rectangle, childBranch2.Rectangle, xDot, yDot) !=
+                        if (Rectangle.CheckOverlapChange(childBranch1.Rect, childBranch2.Rect, xDot, yDot) !=
                             0)
                         {
-                            if (Rectangle.CheckOverlapChange(childBranch1.Rectangle, childBranch2.Rectangle, xDot,
+                            if (Rectangle.CheckOverlapChange(childBranch1.Rect, childBranch2.Rect, xDot,
                                 yDot) > 0)
                             {
                                 currentBranch = childBranch1;
@@ -53,10 +53,10 @@
                         }
                         else
                         {
-                            if (Rectangle.CheckShapeChange(childBranch1.Rectangle, childBranch2.Rectangle, xDot,
+                            if (Rectangle.CheckShapeChange(childBranch1.Rect, childBranch2.Rect, xDot,
                                 yDot) != 0)
                             {
-                                if (Rectangle.CheckShapeChange(childBranch1.Rectangle, childBranch2.Rectangle, xDot,
+                                if (Rectangle.CheckShapeChange(childBranch1.Rect, childBranch2.Rect, xDot,
                                     yDot) > 0)
                                 {
                                     currentBranch = childBranch1;
@@ -81,10 +81,10 @@
                     }
                     else
                     {
-                        if (Rectangle.CheckShapeChange(childBranch1.Rectangle, childBranch2.Rectangle, xDot,
+                        if (Rectangle.CheckShapeChange(childBranch1.Rect, childBranch2.Rect, xDot,
                             yDot) != 0)
                         {
-                            if (Rectangle.CheckShapeChange(childBranch1.Rectangle, childBranch2.Rectangle, xDot,
+                            if (Rectangle.CheckShapeChange(childBranch1.Rect, childBranch2.Rect, xDot,
                                 yDot) > 0)
                             {
                                 currentBranch = childBranch1;

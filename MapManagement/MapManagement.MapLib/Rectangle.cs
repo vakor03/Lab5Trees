@@ -109,8 +109,8 @@ namespace MapManagement.MapLib
             double yMin = Math.Max(rectangle1._yMin, rectangle2._yMin);
             double yMax = Math.Min(rectangle1._yMax, rectangle2._yMax);
 
-            if (rectangle1._xMax <= rectangle2._xMin && rectangle2._xMax <= rectangle1._xMin ||
-                rectangle1._yMax <= rectangle2._yMin && rectangle2._yMax <= rectangle1._yMin)
+            if (rectangle1._xMax <= rectangle2._xMin || rectangle2._xMax <= rectangle1._xMin ||
+                rectangle1._yMax <= rectangle2._yMin || rectangle2._yMax <= rectangle1._yMin)
             {
                 return 0;
             }

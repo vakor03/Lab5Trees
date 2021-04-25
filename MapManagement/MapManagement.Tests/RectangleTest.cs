@@ -67,7 +67,7 @@ namespace MapManagement.Tests
         public void RectangleInitNullTest()
         {
             Branch branch = new Branch();
-            Assert.AreEqual(null, branch.Rectangle);
+            Assert.AreEqual(null, branch.Rect);
         }
         
         [DataRow(0,0,0,0,0)]
@@ -79,7 +79,7 @@ namespace MapManagement.Tests
              Branch branch = new Branch();
              branch.RefindShape(x1, y1);
              branch.RefindShape(x2, y2);
-             Assert.AreEqual(new Rectangle(x1,x2,y1,y2).Shape,branch.Rectangle.Shape,expected);
+             Assert.AreEqual(new Rectangle(x1,x2,y1,y2).Shape,branch.Rect.Shape,expected);
          }
     
         [DataRow(0,0,2,2,0)]
