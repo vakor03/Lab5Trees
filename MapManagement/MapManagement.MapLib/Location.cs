@@ -4,6 +4,10 @@ namespace MapManagement.MapLib
 {
     public class Location
     {
+        //Longitude == x
+        //Latitude == y
+        public double y => _latitude;
+        public double x => _longitude;
         private double _latitude;
         private double _longitude;
         private string _type;
@@ -11,8 +15,6 @@ namespace MapManagement.MapLib
         private string _name;
         private string _address;
 
-        public double Latitude => _latitude;
-        public double Longitude => _longitude;
 
         public Location(string inputString)
         {

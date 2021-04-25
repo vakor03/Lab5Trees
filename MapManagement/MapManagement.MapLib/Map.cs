@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace MapManagement.MapLib
+﻿namespace MapManagement.MapLib
 {
     public class Map
     {
+        public Branch Root
+        {
+            get => _root;
+        }
+
         private Branch _root;
 
         public Map()
@@ -14,7 +16,7 @@ namespace MapManagement.MapLib
 
         public void AddLocation(Location location)
         {
-            Branch destinationBranch = ChooseSubtree(location.Longitude, location.Latitude);
+            Branch destinationBranch = ChooseSubtree(location.x, location.y);
             destinationBranch.AddChild(location);
         }
 
@@ -25,6 +27,7 @@ namespace MapManagement.MapLib
 
             while (true)
             {
+                currentBranch.RefindShape(xDot, yDot);
                 if (currentBranch.GetNodeType() == "PreBranch")
                 {
                     return currentBranch;
@@ -107,38 +110,38 @@ namespace MapManagement.MapLib
             }
         }
 
-        private Branch CheckSmallestOverlap(List<Node> nodes)
-        {
-            int n = 1;
-            Branch branch1 = (Branch) nodes[0];
-            Branch branch2 = (Branch) nodes[1];
-            if (branch1.RectangleShape <= branch2.RectangleShape)
-            {
-                return branch1;
-            }
-            else
-            {
-                return branch2;
-            }
-
-            return null;
-        }
-
-        private Branch CheckSmallestShape(List<Node> nodes)
-        {
-            int n = 1;
-            Branch branch1 = (Branch) nodes[0];
-            Branch branch2 = (Branch) nodes[1];
-            if (branch1.RectangleShape <= branch2.RectangleShape)
-            {
-                return branch1;
-            }
-            else
-            {
-                return branch2;
-            }
-
-            return null;
-        }
+        // private Branch CheckSmallestOverlap(List<Node> nodes)
+        // {
+        //     int n = 1;
+        //     Branch branch1 = (Branch) nodes[0];
+        //     Branch branch2 = (Branch) nodes[1];
+        //     if (branch1.RectangleShape <= branch2.RectangleShape)
+        //     {
+        //         return branch1;
+        //     }
+        //     else
+        //     {
+        //         return branch2;
+        //     }
+        //
+        //     return null;
+        // }
+        //
+        // private Branch CheckSmallestShape(List<Node> nodes)
+        // {
+        //     int n = 1;
+        //     Branch branch1 = (Branch) nodes[0];
+        //     Branch branch2 = (Branch) nodes[1];
+        //     if (branch1.RectangleShape <= branch2.RectangleShape)
+        //     {
+        //         return branch1;
+        //     }
+        //     else
+        //     {
+        //         return branch2;
+        //     }
+        //
+        //     return null;
+        // }
     }
 }

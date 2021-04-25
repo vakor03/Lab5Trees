@@ -1,7 +1,13 @@
-﻿namespace MapManagement.MapLib
+﻿using System;
+
+namespace MapManagement.MapLib
 {
     public class Leaf : Node
     {
+        public Location Location
+        {
+            get => _location;
+        }
         private Branch _mother;
         private Location _location;
 
@@ -20,5 +26,7 @@
         {
             return "Leaf";
         }
+        
+        
     }
 }

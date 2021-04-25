@@ -1,20 +1,21 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace MapManagement.MapLib
 {
     public class Branch : Node
     {
+        public Rectangle Rectangle
+        {
+            get => _rectangle;
+            // set { _rectangle = value; }
+        }
+
+        public double RectangleShape => _rectangle.Shape;
         private static int _maxChild = 10;
         private static int _minChild = 4;
         private List<Node> _childs;
         private Branch _mother;
         private Rectangle _rectangle;
-        public Rectangle Rectangle
-        {
-            get => _rectangle;
-        }
-        public double RectangleShape => _rectangle.Shape;
-        
 
         public Branch(List<Node> childs, Branch mother, Rectangle rectangle)
         {
@@ -34,6 +35,21 @@ namespace MapManagement.MapLib
             _rectangle = rectangle;
         }
 
+        public override string GetNodeType()
+        {
+            if (_childs.Count == 0 || _childs[0].GetNodeType() == "Leaf")
+            {
+                return "PreBranch";
+            }
+
+            return "Branch";
+        }
+
+        public List<Node> GetChilds()
+        {
+            return _childs;
+        }
+        
         public void RefindShape(double x, double y)
         {
             if (_rectangle == null)
@@ -49,7 +65,7 @@ namespace MapManagement.MapLib
         public void AddChild(Location location)
         {
             _childs.Add(new Leaf(this, location));
-            if (_childs.Count>_maxChild)
+            if (_childs.Count > _maxChild)
             {
                 DivideBranch();
             }
@@ -67,26 +83,27 @@ namespace MapManagement.MapLib
             for (int i = 0; i < 2; i++)
             {
                 Branch childBranch = new Branch(this, _rectangle);
-                for (int j = 0; j < _maxChild/2; j++)
+                for (int j = 0; j < _maxChild / 2; j++)
                 {
                     childBranch.AddChild(childs[j]);
                 }
+
                 _childs.Add(childBranch);
             }
         }
 
-        public override string GetNodeType()
+        private void InitRectangle(double x, double y)
         {
-            if (_childs.Count==0 || _childs[0].GetNodeType()=="Leaf")
-            {
-                return "PreBranch";
-            }
-            return "Branch";
+            _rectangle = new Rectangle(x, x, y, y);
         }
 
-        public List<Node> GetChilds()
+        private char ChooseSplitAxis()
         {
-            return _childs;
+            for (int i = 0; i < 2; i++)
+            {
+                
+            }
+            return 'x';
         }
     }
 }
