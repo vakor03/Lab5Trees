@@ -27,7 +27,7 @@
 
             while (true)
             {
-                currentBranch.RefindShape(xDot, yDot);
+                
                 if (currentBranch.GetNodeType() == "PreBranch")
                 {
                     return currentBranch;
@@ -107,6 +107,7 @@
                         }
                     }
                 }
+                currentBranch.RefindShape(xDot, yDot);
             }
         }
 

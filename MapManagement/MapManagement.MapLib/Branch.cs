@@ -69,9 +69,10 @@ namespace MapManagement.MapLib
             AddChild(new Leaf(this, location));
         }
 
-        public void AddChild(Node node)
+        public void AddChild(Leaf leaf)
         {
-            _childs.Add(node);
+            _childs.Add(leaf);
+            RefindShape(leaf.Location.x,leaf.Location.y);
             if (_childs.Count > _maxChild)
             {
                 DivideBranch();
@@ -99,6 +100,7 @@ namespace MapManagement.MapLib
                 if (i<splitIndex)
                 {
                     firstChild.AddChild(sortedLeaf[i]);
+                    
                 }
                 else
                 {
