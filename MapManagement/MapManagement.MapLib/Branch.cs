@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace MapManagement.MapLib
 {
@@ -34,6 +34,18 @@ namespace MapManagement.MapLib
             _rectangle = rectangle;
         }
 
+        public void RefindShape(double x, double y)
+        {
+            if (_rectangle == null)
+            {
+                InitRectangle(x, y);
+            }
+            else
+            {
+                Rectangle.ChangeRectangle(x, y);
+            }
+        }
+        
         public void AddChild(Location location)
         {
             _childs.Add(new Leaf(this, location));

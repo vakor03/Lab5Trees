@@ -4,28 +4,46 @@ namespace MapManagement.MapLib
 {
     public class Rectangle
     {
+        public double Shape
+        {
+            get { return (_xMax - _xMin) * (_yMax - _yMin); }
+        }
+
         private double _xMin;
         private double _xMax;
         private double _yMin;
         private double _yMax;
 
-        public double Shape
-        {
-            get { return (_xMax - _xMin) * (_yMax - _yMin); }
-            set { }
-        }
 
         public Rectangle()
         {
         }
 
-        public Rectangle(double xMin, double xMax, double yMin, double yMax)
+        public Rectangle(double x1, double x2, double y1, double y2)
         {
-            _xMin = xMin;
-            _xMax = xMax;
-            _yMin = yMin;
-            _yMax = yMax;
+            if (x1 < x2)
+            {
+                _xMin = x1;
+                _xMax = x2;
+            }
+            else
+            {
+                _xMin = x2;
+                _xMax = x1;
+            }
+
+            if (y1 < y2)
+            {
+                _yMin = y1;
+                _yMax = y2;
+            }
+            else
+            {
+                _yMin = y2;
+                _yMax = y1;
+            }
         }
+
 
         public static double CheckOverlapChange(Rectangle firstRectangle, Rectangle secondRectangle, double xDot,
             double yDot)
@@ -116,6 +134,27 @@ namespace MapManagement.MapLib
 
             double shapeChange = (xMax - xMin) * (yMax - yMin) - rectangle.Shape;
             return shapeChange;
+        }
+
+        public void ChangeRectangle(double xDot, double yDot)
+        {
+            if (xDot < _xMin)
+            {
+                _xMin = xDot;
+            }
+            else if (xDot > _xMax)
+            {
+                _xMax = xDot;
+            }
+
+            if (yDot < _yMin)
+            {
+                _yMin = yDot;
+            }
+            else if (yDot > _yMax)
+            {
+                _yMax = yDot;
+            }
         }
     }
 }

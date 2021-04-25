@@ -61,6 +61,27 @@ namespace MapManagement.Tests
             
             Assert.AreEqual(expected,actual,4);
         }
+
+        
+        [TestMethod]
+        public void RectangleInitNullTest()
+        {
+            Branch branch = new Branch();
+            Assert.AreEqual(null, branch.Rectangle);
+        }
+        
+        [DataRow(0,0,1,1,1)]
+        [DataRow(1,0,1,0,0)]
+        [DataRow(1,0,2,0,0)]
+        [DataTestMethod]
+        public void RectangleInitTest(double x1, double y1, double x2, double y2, double expected)
+        {
+            Branch branch = new Branch();
+            branch.RefindShape(x1, y1);
+            branch.RefindShape(x2, y2);
+            
+            Assert.AreEqual(new Rectangle(x1,x2,y1,y2).Shape,branch.Rectangle.Shape,expected);
+        }
         
         
     }
