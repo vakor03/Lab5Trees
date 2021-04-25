@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MapManagement.LocationLib;
 using MapManagement.MapLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -40,22 +41,11 @@ namespace MapManagement.Tests
         public void MinMarginTest()
         {
             Map map = new Map();
-            map.AddLocation(new Location("2;1;;;;;"));
-            map.AddLocation(new Location("2;4;;;;;"));
-            map.AddLocation(new Location("3;2;;;;;"));
-            map.AddLocation(new Location("5;5;;;;;"));
-            map.AddLocation(new Location("2;8;;;;;"));
-            map.AddLocation(new Location("7;10;;;;;"));
-            map.AddLocation(new Location("4;12;;;;;"));
-            map.AddLocation(new Location("5;13;;;;;"));
-            map.AddLocation(new Location("6;14;;;;;"));
-            map.AddLocation(new Location("7;15;;;;;"));
-            map.AddLocation(new Location("6;12;;;;;"));
-        
-            
-            //Assert.AreEqual(axis,5);
-           
-            
+            string path = @"C:\Users\Вакор\Desktop\Projects\Lab5Trees\MapManagement\Locations\Locations.csv";
+            ReadFile readFile = new ReadFile(path, map);
+            readFile.Read();
+
+
         }
     }
 }

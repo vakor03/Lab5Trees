@@ -23,7 +23,7 @@
         private Branch ChooseSubtree(double xDot, double yDot)
         {
             Branch currentBranch = _root;
-
+            currentBranch.RefindShape(xDot, yDot);
 
             while (true)
             {
@@ -68,7 +68,7 @@
                             }
                             else
                             {
-                                if (childBranch1.RectangleShape <= childBranch2.RectangleShape)
+                                if (childBranch1.Rect.Shape <= childBranch2.Rect.Shape)
                                 {
                                     currentBranch = childBranch1;
                                 }
@@ -96,7 +96,7 @@
                         }
                         else
                         {
-                            if (childBranch1.RectangleShape <= childBranch2.RectangleShape)
+                            if (childBranch1.Rect.Shape <= childBranch2.Rect.Shape)
                             {
                                 currentBranch = childBranch1;
                             }

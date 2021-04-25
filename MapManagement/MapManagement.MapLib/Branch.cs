@@ -12,7 +12,6 @@ namespace MapManagement.MapLib
             // set { _rectangle = value; }
         }
 
-        public double RectangleShape => _rectangle.Shape;
         private static int _maxChild = 10;
         private static int _minChild = 4;
         private List<Node> _childs;
@@ -79,7 +78,7 @@ namespace MapManagement.MapLib
             }
         }
 
-        public void DivideBranch()
+        private void DivideBranch()
         {
             char axis = ChooseSplitAxis();
             Leaf[] sortedLeaf = GetChilds().Select(node => (Leaf) node).ToArray();

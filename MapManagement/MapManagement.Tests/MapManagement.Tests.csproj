@@ -14,6 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\MapManagement.LocationLib\MapManagement.LocationLib.csproj" />
       <ProjectReference Include="..\MapManagement.MapLib\MapManagement.MapLib.csproj" />
     </ItemGroup>
 

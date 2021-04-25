@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using MapManagement.MapLib;
 
 namespace MapManagement.LocationLib
@@ -17,11 +18,17 @@ namespace MapManagement.LocationLib
         {
             using (StreamReader sr = new StreamReader(new FileStream(_path, FileMode.Open)))
             {
+                long i = 0;
                 string line = sr.ReadLine();
                 while (line!=null)
                 {
-                    Location location = new Location(line);
-                    _map.AddLocation(location);
+                    if (Location.CheckLocatValidat(line))
+                    {
+                        Location location = new Location(line);
+                        _map.AddLocation(location);
+                        
+                    }
+                    i++;
                     line = sr.ReadLine();
                 }
             }
