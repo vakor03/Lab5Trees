@@ -154,7 +154,6 @@ namespace MapManagement.MapLib
 
         public void AddDot(double xDot, double yDot)
         {
-            
             if (_numbDots == 0)
             {
                 _xMax = xDot;
@@ -182,6 +181,7 @@ namespace MapManagement.MapLib
                     _yMax = yDot;
                 }
             }
+
             _numbDots++;
         }
     }

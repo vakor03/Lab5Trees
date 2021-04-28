@@ -9,7 +9,6 @@ namespace MapManagement.MapLib
         public Rectangle Rect
         {
             get => _rectangle;
-            // set { _rectangle = value; }
         }
 
         private static int _maxChild = 10;
@@ -68,10 +67,10 @@ namespace MapManagement.MapLib
             AddChild(new Leaf(this, location));
         }
 
-        public void AddChild(Leaf leaf)
+        private void AddChild(Leaf leaf)
         {
             _childs.Add(leaf);
-            RefindShape(leaf.Location.x,leaf.Location.y);
+            RefindShape(leaf.Location.x, leaf.Location.y);
             if (_childs.Count > _maxChild)
             {
                 DivideBranch();
@@ -96,10 +95,9 @@ namespace MapManagement.MapLib
             Branch secondChild = new Branch();
             for (int i = 0; i < sortedLeaf.Length; i++)
             {
-                if (i<splitIndex)
+                if (i < splitIndex)
                 {
                     firstChild.AddChild(sortedLeaf[i]);
-                    
                 }
                 else
                 {
@@ -121,10 +119,8 @@ namespace MapManagement.MapLib
             {
                 return 'x';
             }
-            else
-            {
-                return 'y';
-            }
+
+            return 'y';
         }
 
         private int ChooseSplitIndex(Leaf[] sortedLeaf)
@@ -166,11 +162,9 @@ namespace MapManagement.MapLib
             {
                 return splitIndex + _minChild;
             }
-            else
-            {
-                (_, splitIndex) = MinOfArray(shapes);
-                return splitIndex + _minChild;
-            }
+
+            (_, splitIndex) = MinOfArray(shapes);
+            return splitIndex + _minChild;
         }
 
         private double MinMarginDiv(IComparer<Leaf> comparer)

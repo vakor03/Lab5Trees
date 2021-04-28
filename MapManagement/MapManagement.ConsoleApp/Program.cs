@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using MapManagement.MapLib;
 using MapManagement.LocationLib;
-using MapManagement.MapLib;
 
 namespace MapManagement.ConsoleApp
 {
@@ -10,17 +7,10 @@ namespace MapManagement.ConsoleApp
     {
         static void Main(string[] args)
         {
-            string path = @"../../../../Locations/Locations.csv";
+            string path = @"C:\Users\Вакор\Desktop\Projects\Lab5Trees\MapManagement\Locations\Locations.csv";
             Map map = new Map();
-            // ReadFile readFile = new ReadFile(path, map);
-            // readFile.Read();
-            // Branch branch = new Branch();
-            for (int i = 0; i < 5; i++)
-            {
-                map.AddLocation(new Location("50,60659;30,45436;shop;car;Авто Масло;;"));
-            }
-            
-            // Console.WriteLine(branch.GetChilds()[0].GetNodeType());
+            ReadFile readFile = new ReadFile(path, map);
+            readFile.Read();
         }
     }
 }
