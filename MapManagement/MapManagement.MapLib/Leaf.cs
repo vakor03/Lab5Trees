@@ -8,6 +8,7 @@ namespace MapManagement.MapLib
         {
             get => _location;
         }
+
         private Branch _mother;
         private Location _location;
 
@@ -26,7 +27,5 @@ namespace MapManagement.MapLib
         {
             return "Leaf";
         }
-        
-        
     }
 }

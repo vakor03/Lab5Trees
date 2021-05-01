@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using MapManagement.MapLib;
 
 namespace MapManagement.LocationLib
