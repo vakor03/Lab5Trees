@@ -11,6 +11,11 @@ namespace MapManagement.MapLib
             get => _rectangle;
         }
 
+        public List<Node> Childs
+        {
+            get => _childs;
+        }
+
         private static int _maxChild = 10;
         private static int _minChild = 4;
         private List<Node> _childs;
