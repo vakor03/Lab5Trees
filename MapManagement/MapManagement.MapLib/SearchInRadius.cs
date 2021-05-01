@@ -19,12 +19,12 @@ namespace MapManagement.MapLib
             _type = type;
             _circlePoints = new[]
             {
-                ((latitude - radius / (Math.Cos(latitude) * 111321.377778)), longitude),
-                ((latitude + radius / (Math.Cos(latitude) * 111321.377778)), longitude),
-                (latitude, longitude - radius / 111.134861111),
-                (latitude, longitude + radius / 111.134861111)
+                (latitude - radius /  111, longitude),
+                (latitude + radius /  111, longitude),
+                (latitude, longitude - radius / 70.29844), 
+                (latitude, longitude + radius / 70.29844)
             };
-            FindNearest();
+            FindNearest(); //50.607205422589665, 31.857749342382935
         }
 
         private void SearchTree(Branch current, List<Leaf> leaves)
@@ -57,22 +57,26 @@ namespace MapManagement.MapLib
                     result.Add(leaf.Location);
             }
 
+            foreach (var location in result)
+            {
+                Console.WriteLine(location.x + " " + location.y);
+            }
             return result;
         }
 
-        private double GetDistance(double lat1, double lon1, double lat2, double lon2)
+        public double GetDistance(double lat1, double lon1, double lat2, double lon2)
         {
-            double[] coordsInRadians =
+            double[] grads =
             {
-                lat1 * 3.1415 / 180, lon1 * 3.1415 / 180,
-                lat2 * 3.1415 / 180, lon2 * 3.1415 / 180
+                lat1 * 3.1415925 / 180, lon1 * 3.1415925 / 180,
+                lat2 * 3.1415925 / 180, lon2 * 3.1415925 / 180
             };
 
-            double a = Math.Pow(Math.Sin((coordsInRadians[2] - coordsInRadians[0]) / 2), 2) +
-                       Math.Cos(coordsInRadians[0]) *
-                       Math.Cos(coordsInRadians[2]) *
-                       Math.Pow(Math.Sin((coordsInRadians[3] - coordsInRadians[1]) / 2), 2);
-            return 7922 * Math.Asin(Math.Sqrt(a));
+            double a = Math.Pow(Math.Sin((grads[2] - grads[0]) / 2), 2) +
+                       Math.Cos(grads[0]) *
+                       Math.Cos(grads[2]) *
+                       Math.Pow(Math.Sin((grads[3] - grads[1]) / 2), 2);
+            return 12742 * Math.Asin(Math.Sqrt(a));
         }
 
         private bool CheckInCircle((double, double) botCorner, (double, double) topCorner)
@@ -92,6 +96,16 @@ namespace MapManagement.MapLib
             }
 
             return false;
+        }
+        
+        public static void GetCircle((double, double) center, double radius)
+        {
+            double a = Math.Sin(center.Item1*3.1415925/180);
+            double b = Math.Cos(center.Item1*3.1415925/180);
+            double c = - 2 * Math.Pow(Math.Sin(radius  / 12742), 2) + 1;
+            double x1 = 2 * Math.Atan((a + Math.Sqrt(a * a + b * b - c * c)) / (b + c))*180/3.1415925;
+            double x2 = 2 * Math.Atan((a - Math.Sqrt(a * a + b * b - c * c)) / (b + c))*180/3.1415925;
+            Console.WriteLine(x1 + " " + x2);
         }
     }
 }
