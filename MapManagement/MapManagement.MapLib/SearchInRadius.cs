@@ -107,5 +107,14 @@ namespace MapManagement.MapLib
             double x2 = 2 * Math.Atan((a - Math.Sqrt(a * a + b * b - c * c)) / (b + c))*180/3.1415925;
             Console.WriteLine(x1 + " " + x2);
         }
+        
+        public static void GetCircleGorizontal((double, double) center, double radius)
+        {
+            double lon1 =
+                Math.Acos(-1 * (2 * Math.Pow(Math.Sin(radius / 12742), 2) - 1 +
+                                Math.Pow(Math.Sin(center.Item1 * 3.1415925 / 180), 2)) /
+                          Math.Pow(Math.Cos(center.Item1 * 3.1415925 / 180), 2)) * 180 / 3.1415925 + center.Item2;
+            Console.WriteLine(lon1);
+        }
     }
 }
