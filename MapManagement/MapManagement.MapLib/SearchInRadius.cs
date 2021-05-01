@@ -8,25 +8,40 @@ namespace MapManagement.MapLib
         private (double, double) _center;
         private double _radius;
         private (double, double)[] _circlePoints;
+        private string _type;
         
-        public SearchInRadius()
+        public SearchInRadius(double latitude, double longitude, double radius, string type)
         {
-            
+            _center = (latitude, longitude);
+            _radius = radius;
+            _type = type;
+            _circlePoints = new[]
+            {
+                ((latitude - radius / (Math.Cos(latitude) * 111321.377778)), longitude),
+                ((latitude + radius / (Math.Cos(latitude) * 111321.377778)), longitude),
+                (latitude, longitude - radius / 111.134861111),
+                (latitude, longitude + radius / 111.134861111)
+            };
         }
         
-        private void SearchTree(Branch current, List<Node> leaves)
+        private void SearchTree(Branch current, List<Leaf> leaves)
         {
+            if (current.GetNodeType() == "PreBranch")
+            {
+                foreach (var leaf in current.Childs)
+                {
+                    leaves.Add((Leaf)leaf);
+                }
+            }
+            
             for (int i = 0; i < current.Childs.Count; i++)
             {
+                SearchTree((Branch)current.Childs[i], leaves);
             }
         }
 
-        public List<Location> FindNearest(double latitude, double longitude, double radius, string type)
+        public List<Location> FindNearest()
         {
-            var bot = ((latitude - radius / (Math.Cos(latitude) * 111321.377778)), longitude);
-            var top = ((latitude + radius / (Math.Cos(latitude) * 111321.377778)), longitude);
-            var left = (latitude, longitude - radius / 111.134861111);
-            var right = (latitude, longitude + radius / 111.134861111);
             return null;
         }
 
@@ -45,9 +60,21 @@ namespace MapManagement.MapLib
             return 7922 * Math.Asin(Math.Sqrt(a));
         }
 
-        private bool CheckInCircle()
+        private bool CheckInCircle((double, double) botCorner, (double, double) topCorner)
         {
-            
+            if (GetDistance(botCorner.Item1, botCorner.Item2, _center.Item1, _center.Item2) <= _radius)
+                return true;
+            if (GetDistance(topCorner.Item1, botCorner.Item2, _center.Item1, _center.Item2) <= _radius)
+                return true;
+            if (GetDistance(botCorner.Item1, topCorner.Item2, _center.Item1, _center.Item2) <= _radius)
+                return true;
+            if (GetDistance(topCorner.Item1, topCorner.Item2, _center.Item1, _center.Item2) <= _radius)
+                return true;
+            foreach (var coordinates in _circlePoints)
+            {
+                if (coordinates.Item1 >= botCorner.Item1 && coordinates.Item1 <= topCorner.Item1 &&
+                    coordinates.Item2 >= botCorner.Item2 && coordinates.Item2 <= topCorner.Item2) return true;
+            }
             return false;
         }
     }
