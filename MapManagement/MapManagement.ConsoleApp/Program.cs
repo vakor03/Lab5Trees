@@ -11,6 +11,7 @@ namespace MapManagement.ConsoleApp
             Map map = new Map();
             ReadFile readFile = new ReadFile(path, map);
             readFile.Read();
+            SearchInRadius searchInRadius = new SearchInRadius(map,50.60659, 32, 10, "shop");
         }
     }
 }

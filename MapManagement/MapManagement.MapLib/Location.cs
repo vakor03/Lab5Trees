@@ -11,7 +11,13 @@ namespace MapManagement.MapLib
         private double _latitude;
         private double _longitude;
         private string _type;
+
+        public string Type => _type;
+
         private string _subtype;
+
+        public string Subtype => _subtype;
+
         private string _name;
         private string _address;
 

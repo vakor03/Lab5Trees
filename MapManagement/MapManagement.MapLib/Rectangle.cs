@@ -13,7 +13,7 @@ namespace MapManagement.MapLib
         {
             get => ((_xMax - _xMin) + (_yMax - _yMin)) * 2;
         }
-
+        
         private double _xMin;
         private double _xMax;
         private double _yMin;
@@ -183,6 +183,11 @@ namespace MapManagement.MapLib
             }
 
             _numbDots++;
+        }
+
+        public (double, double) GetCorner(string direction)
+        {
+            return direction == "bot" ? (_xMin, _yMin) : (_xMax, _yMax);
         }
     }
 }

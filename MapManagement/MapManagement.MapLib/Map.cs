@@ -7,6 +7,11 @@ namespace MapManagement.MapLib
     {
         private Branch _root;
 
+        public Branch Root
+        {
+            get => _root;
+        }
+
         public Map()
         {
             _root = new Branch();

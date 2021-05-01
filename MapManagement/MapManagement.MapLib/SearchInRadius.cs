@@ -5,13 +5,15 @@ namespace MapManagement.MapLib
 {
     public class SearchInRadius
     {
+        private Map _map;
         private (double, double) _center;
         private double _radius;
         private (double, double)[] _circlePoints;
         private string _type;
-        
-        public SearchInRadius(double latitude, double longitude, double radius, string type)
+
+        public SearchInRadius(Map map, double latitude, double longitude, double radius, string type)
         {
+            _map = map;
             _center = (latitude, longitude);
             _radius = radius;
             _type = type;
@@ -22,27 +24,40 @@ namespace MapManagement.MapLib
                 (latitude, longitude - radius / 111.134861111),
                 (latitude, longitude + radius / 111.134861111)
             };
+            FindNearest();
         }
-        
+
         private void SearchTree(Branch current, List<Leaf> leaves)
         {
+            if (!CheckInCircle(current.Rect.GetCorner("bot"), current.Rect.GetCorner("top")))
+                return;
             if (current.GetNodeType() == "PreBranch")
             {
                 foreach (var leaf in current.Childs)
                 {
-                    leaves.Add((Leaf)leaf);
+                    leaves.Add((Leaf) leaf);
                 }
             }
-            
+
             for (int i = 0; i < current.Childs.Count; i++)
             {
-                SearchTree((Branch)current.Childs[i], leaves);
+                SearchTree((Branch) current.Childs[i], leaves);
             }
         }
 
         public List<Location> FindNearest()
         {
-            return null;
+            List<Leaf> temp = new List<Leaf>();
+            SearchTree(_map.Root, temp);
+            List<Location> result = new List<Location>();
+            foreach (var leaf in temp)
+            {
+                if ((leaf.Location.Type == _type || leaf.Location.Subtype == _type) &&
+                    GetDistance(leaf.Location.x, leaf.Location.y, _center.Item1, _center.Item2) <= _radius)
+                    result.Add(leaf.Location);
+            }
+
+            return result;
         }
 
         private double GetDistance(double lat1, double lon1, double lat2, double lon2)
@@ -75,6 +90,7 @@ namespace MapManagement.MapLib
                 if (coordinates.Item1 >= botCorner.Item1 && coordinates.Item1 <= topCorner.Item1 &&
                     coordinates.Item2 >= botCorner.Item2 && coordinates.Item2 <= topCorner.Item2) return true;
             }
+
             return false;
         }
     }
