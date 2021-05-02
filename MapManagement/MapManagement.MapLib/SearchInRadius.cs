@@ -17,14 +17,9 @@ namespace MapManagement.MapLib
             _center = (latitude, longitude);
             _radius = radius;
             _type = type;
-            _circlePoints = new[]
-            {
-                (latitude - radius /  111, longitude),
-                (latitude + radius /  111, longitude),
-                (latitude, longitude - radius / 70.29844), 
-                (latitude, longitude + radius / 70.29844)
-            };
-            FindNearest(); //50.607205422589665, 31.857749342382935
+            _circlePoints = new (double, double)[4];
+            GetCircle();
+            FindNearest();
         }
 
         private void SearchTree(Branch current, List<Leaf> leaves)
@@ -37,6 +32,7 @@ namespace MapManagement.MapLib
                 {
                     leaves.Add((Leaf) leaf);
                 }
+                return;
             }
 
             for (int i = 0; i < current.Childs.Count; i++)
@@ -53,7 +49,7 @@ namespace MapManagement.MapLib
             foreach (var leaf in temp)
             {
                 if ((leaf.Location.Type == _type || leaf.Location.Subtype == _type) &&
-                    GetDistance(leaf.Location.x, leaf.Location.y, _center.Item1, _center.Item2) <= _radius)
+                    GetDistance(leaf.Location.y, leaf.Location.x, _center.Item1, _center.Item2) <= _radius)
                     result.Add(leaf.Location);
             }
 
@@ -61,6 +57,7 @@ namespace MapManagement.MapLib
             {
                 Console.WriteLine(location.x + " " + location.y);
             }
+
             return result;
         }
 
@@ -97,24 +94,25 @@ namespace MapManagement.MapLib
 
             return false;
         }
-        
-        public static void GetCircle((double, double) center, double radius)
+
+        private void GetCircle()
         {
-            double a = Math.Sin(center.Item1*3.1415925/180);
-            double b = Math.Cos(center.Item1*3.1415925/180);
-            double c = - 2 * Math.Pow(Math.Sin(radius  / 12742), 2) + 1;
-            double x1 = 2 * Math.Atan((a + Math.Sqrt(a * a + b * b - c * c)) / (b + c))*180/3.1415925;
-            double x2 = 2 * Math.Atan((a - Math.Sqrt(a * a + b * b - c * c)) / (b + c))*180/3.1415925;
-            Console.WriteLine(x1 + " " + x2);
-        }
-        
-        public static void GetCircleGorizontal((double, double) center, double radius)
-        {
-            double lon1 =
-                Math.Acos(-1 * (2 * Math.Pow(Math.Sin(radius / 12742), 2) - 1 +
-                                Math.Pow(Math.Sin(center.Item1 * 3.1415925 / 180), 2)) /
-                          Math.Pow(Math.Cos(center.Item1 * 3.1415925 / 180), 2)) * 180 / 3.1415925 + center.Item2;
-            Console.WriteLine(lon1);
+            double a = Math.Sin(_center.Item1 * 3.1415925 / 180);
+            double b = Math.Cos(_center.Item1 * 3.1415925 / 180);
+            double c = -2 * Math.Pow(Math.Sin(_radius / 12742), 2) + 1;
+            _circlePoints[0] = (2 * Math.Atan((a + Math.Sqrt(a * a + b * b - c * c)) / (b + c)) * 180 / 3.1415925,
+                _center.Item2);
+            _circlePoints[1] = (2 * Math.Atan((a - Math.Sqrt(a * a + b * b - c * c)) / (b + c)) * 180 / 3.1415925,
+                _center.Item2);
+            _circlePoints[2] = (_center.Item1, Math.Acos(-1 * (2 * Math.Pow(Math.Sin(_radius / 12742), 2) - 1 +
+                                                               Math.Pow(Math.Sin(_center.Item1 * 3.1415925 / 180), 2)) /
+                                                         Math.Pow(Math.Cos(_center.Item1 * 3.1415925 / 180), 2)) * 180 /
+                3.1415925 + _center.Item2);
+            _circlePoints[3] = (_center.Item1, -1 * Math.Acos(-1 * (2 * Math.Pow(Math.Sin(_radius / 12742), 2) - 1 +
+                                                                    Math.Pow(Math.Sin(_center.Item1 * 3.1415925 / 180),
+                                                                        2)) /
+                                                              Math.Pow(Math.Cos(_center.Item1 * 3.1415925 / 180), 2)) *
+                180 / 3.1415925 + _center.Item2);
         }
     }
 }

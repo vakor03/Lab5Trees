@@ -187,7 +187,7 @@ namespace MapManagement.MapLib
 
         public (double, double) GetCorner(string direction)
         {
-            return direction == "bot" ? (_xMin, _yMin) : (_xMax, _yMax);
+            return direction == "bot" ? (_yMin, _xMin) : (_yMax, _xMax);
         }
     }
 }
