@@ -4,16 +4,10 @@ namespace MapManagement.MapLib
 {
     public class Rectangle
     {
-        public double Shape
-        {
-            get { return (_xMax - _xMin) * (_yMax - _yMin); }
-        }
+        public double Shape => (_xMax - _xMin) * (_yMax - _yMin);
 
-        public double Margin
-        {
-            get => ((_xMax - _xMin) + (_yMax - _yMin)) * 2;
-        }
-        
+        public double Margin => ((_xMax - _xMin) + (_yMax - _yMin)) * 2;
+
         private double _xMin;
         private double _xMax;
         private double _yMin;

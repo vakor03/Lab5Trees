@@ -10,4 +10,19 @@
       <ProjectReference Include="..\MapManagement.MapLib\MapManagement.MapLib.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <EmbeddedResource Update="TextResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>TextResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="TextResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>TextResources.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

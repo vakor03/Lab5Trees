@@ -7,10 +7,7 @@ namespace MapManagement.MapLib
     {
         private Branch _root;
 
-        public Branch Root
-        {
-            get => _root;
-        }
+        public Branch Root => _root;
 
         public Map()
         {
@@ -87,40 +84,5 @@ namespace MapManagement.MapLib
                 currentBranch.RefindShape(xDot, yDot);
             }
         }
-        
-
-        // private Branch CheckSmallestOverlap(List<Node> nodes)
-        // {
-        //     int n = 1;
-        //     Branch branch1 = (Branch) nodes[0];
-        //     Branch branch2 = (Branch) nodes[1];
-        //     if (branch1.RectangleShape <= branch2.RectangleShape)
-        //     {
-        //         return branch1;
-        //     }
-        //     else
-        //     {
-        //         return branch2;
-        //     }
-        //
-        //     return null;
-        // }
-        //
-        // private Branch CheckSmallestShape(List<Node> nodes)
-        // {
-        //     int n = 1;
-        //     Branch branch1 = (Branch) nodes[0];
-        //     Branch branch2 = (Branch) nodes[1];
-        //     if (branch1.RectangleShape <= branch2.RectangleShape)
-        //     {
-        //         return branch1;
-        //     }
-        //     else
-        //     {
-        //         return branch2;
-        //     }
-        //
-        //     return null;
-        // }
     }
 }

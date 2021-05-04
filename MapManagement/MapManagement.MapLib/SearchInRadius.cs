@@ -5,11 +5,11 @@ namespace MapManagement.MapLib
 {
     public class SearchInRadius
     {
-        private Map _map;
-        private (double, double) _center;
-        private double _radius;
-        private (double, double)[] _circlePoints;
-        private string _type;
+        private readonly Map _map;
+        private readonly (double, double) _center;
+        private readonly double _radius;
+        private readonly (double, double)[] _circlePoints;
+        private readonly string _type;
 
         public SearchInRadius(Map map, double latitude, double longitude, double radius, string type)
         {
@@ -19,7 +19,6 @@ namespace MapManagement.MapLib
             _type = type;
             _circlePoints = new (double, double)[4];
             GetCircle();
-            FindNearest();
         }
 
         private void SearchTree(Branch current, List<Leaf> leaves)
@@ -32,12 +31,13 @@ namespace MapManagement.MapLib
                 {
                     leaves.Add((Leaf) leaf);
                 }
+
                 return;
             }
 
-            for (int i = 0; i < current.Childs.Count; i++)
+            foreach (var child in current.Childs)
             {
-                SearchTree((Branch) current.Childs[i], leaves);
+                SearchTree((Branch) child, leaves);
             }
         }
 
@@ -48,25 +48,28 @@ namespace MapManagement.MapLib
             List<Location> result = new List<Location>();
             foreach (var leaf in temp)
             {
-                if ((leaf.Location.Type == _type || leaf.Location.Subtype == _type) &&
-                    GetDistance(leaf.Location.y, leaf.Location.x, _center.Item1, _center.Item2) <= _radius)
-                    result.Add(leaf.Location);
-            }
-
-            foreach (var location in result)
-            {
-                Console.WriteLine(location.x + " " + location.y);
+                if (_type != default)
+                {
+                    if ((leaf.Location.Type == _type || leaf.Location.Subtype == _type) &&
+                        GetDistance(leaf.Location.y, leaf.Location.x, _center.Item1, _center.Item2) <= _radius)
+                        result.Add(leaf.Location);
+                }
+                else
+                {
+                    if (GetDistance(leaf.Location.y, leaf.Location.x, _center.Item1, _center.Item2) <= _radius)
+                        result.Add(leaf.Location);
+                }
             }
 
             return result;
         }
 
-        public double GetDistance(double lat1, double lon1, double lat2, double lon2)
+        private static double GetDistance(double lat1, double lon1, double lat2, double lon2)
         {
             double[] grads =
             {
-                lat1 * 3.1415925 / 180, lon1 * 3.1415925 / 180,
-                lat2 * 3.1415925 / 180, lon2 * 3.1415925 / 180
+                lat1 * Math.PI / 180, lon1 * Math.PI / 180,
+                lat2 * Math.PI / 180, lon2 * Math.PI / 180
             };
 
             double a = Math.Pow(Math.Sin((grads[2] - grads[0]) / 2), 2) +
@@ -97,22 +100,24 @@ namespace MapManagement.MapLib
 
         private void GetCircle()
         {
-            double a = Math.Sin(_center.Item1 * 3.1415925 / 180);
-            double b = Math.Cos(_center.Item1 * 3.1415925 / 180);
-            double c = -2 * Math.Pow(Math.Sin(_radius / 12742), 2) + 1;
-            _circlePoints[0] = (2 * Math.Atan((a + Math.Sqrt(a * a + b * b - c * c)) / (b + c)) * 180 / 3.1415925,
+            int EarthDiametr = 12742;
+            double a = Math.Sin(_center.Item1 * Math.PI / 180);
+            double b = Math.Cos(_center.Item1 * Math.PI / 180);
+            double c = -2 * Math.Pow(Math.Sin(_radius / EarthDiametr), 2) + 1;
+            _circlePoints[0] = (2 * Math.Atan((a + Math.Sqrt(a * a + b * b - c * c)) / (b + c)) * 180 / Math.PI,
                 _center.Item2);
-            _circlePoints[1] = (2 * Math.Atan((a - Math.Sqrt(a * a + b * b - c * c)) / (b + c)) * 180 / 3.1415925,
+            _circlePoints[1] = (2 * Math.Atan((a - Math.Sqrt(a * a + b * b - c * c)) / (b + c)) * 180 / Math.PI,
                 _center.Item2);
-            _circlePoints[2] = (_center.Item1, Math.Acos(-1 * (2 * Math.Pow(Math.Sin(_radius / 12742), 2) - 1 +
-                                                               Math.Pow(Math.Sin(_center.Item1 * 3.1415925 / 180), 2)) /
-                                                         Math.Pow(Math.Cos(_center.Item1 * 3.1415925 / 180), 2)) * 180 /
-                3.1415925 + _center.Item2);
-            _circlePoints[3] = (_center.Item1, -1 * Math.Acos(-1 * (2 * Math.Pow(Math.Sin(_radius / 12742), 2) - 1 +
-                                                                    Math.Pow(Math.Sin(_center.Item1 * 3.1415925 / 180),
+            _circlePoints[2] = (_center.Item1, Math.Acos(-1 * (2 * Math.Pow(Math.Sin(_radius / EarthDiametr), 2) - 1 +
+                                                               Math.Pow(Math.Sin(_center.Item1 * Math.PI / 180), 2)) /
+                                                         Math.Pow(Math.Cos(_center.Item1 * Math.PI / 180), 2)) * 180 /
+                Math.PI + _center.Item2);
+            _circlePoints[3] = (_center.Item1, -1 * Math.Acos(-1 * (2 * Math.Pow(Math.Sin(_radius / EarthDiametr), 2) -
+                                                                    1 +
+                                                                    Math.Pow(Math.Sin(_center.Item1 * Math.PI / 180),
                                                                         2)) /
-                                                              Math.Pow(Math.Cos(_center.Item1 * 3.1415925 / 180), 2)) *
-                180 / 3.1415925 + _center.Item2);
+                                                              Math.Pow(Math.Cos(_center.Item1 * Math.PI / 180), 2)) *
+                180 / Math.PI + _center.Item2);
         }
     }
 }

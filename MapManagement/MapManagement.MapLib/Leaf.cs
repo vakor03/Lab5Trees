@@ -4,10 +4,7 @@ namespace MapManagement.MapLib
 {
     public class Leaf : Node
     {
-        public Location Location
-        {
-            get => _location;
-        }
+        public Location Location => _location;
 
         private Branch _mother;
         private Location _location;

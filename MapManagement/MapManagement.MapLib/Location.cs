@@ -8,18 +8,18 @@ namespace MapManagement.MapLib
         //Latitude == y
         public double y => _latitude;
         public double x => _longitude;
-        private double _latitude;
-        private double _longitude;
-        private string _type;
+        private readonly double _latitude;
+        private readonly double _longitude;
+        private readonly string _type;
 
         public string Type => _type;
 
-        private string _subtype;
+        private readonly string _subtype;
 
         public string Subtype => _subtype;
 
-        private string _name;
-        private string _address;
+        private readonly string _name;
+        private readonly string _address;
 
 
         public Location(string inputString)
@@ -55,11 +55,11 @@ namespace MapManagement.MapLib
 
         public override string ToString()
         {
-            return $"latitude is {_latitude}\n" +
-                   $"longitude is {_longitude}\n" +
-                   $"type: {_type}, subtype: {_subtype}\n" +
-                   $"name: {_name}\n" +
-                   $"address: {_address}";
+            return $"latitude is {_latitude}, " +
+                   $"longitude is {_longitude}, " +
+                   $"type: {_type}, subtype: {_subtype}, " +
+                   $"name: {_name}, " +
+                   $"address: {_address}.";
         }
     }
 }

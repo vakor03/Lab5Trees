@@ -7,27 +7,26 @@ namespace MapManagement.LocationLib
     {
         private string _path { get; }
         private Map _map;
-        
+
         public ReadFile(string path, Map map)
         {
             _path = path;
             _map = map;
         }
+
         public void Read()
         {
             using (StreamReader sr = new StreamReader(new FileStream(_path, FileMode.Open)))
             {
-                long i = 0;
                 string line = sr.ReadLine();
-                while (line!=null)
+                while (line != null)
                 {
                     if (Location.CheckLocatValidat(line))
                     {
                         Location location = new Location(line);
                         _map.AddLocation(location);
-                        
                     }
-                    i++;
+
                     line = sr.ReadLine();
                 }
             }

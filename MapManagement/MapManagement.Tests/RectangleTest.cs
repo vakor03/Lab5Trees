@@ -17,21 +17,7 @@ namespace MapManagement.Tests
             
             Assert.AreEqual(expectedShape,actualShape);
         }
-
-        // [DataRow(0,3,0,3,2,2, 0)]
-        // [DataRow(0,3,0,3,-1,2, 3)]
-        // [DataRow(0,3,0,3,4,2, 3)]
-        // [DataRow(0,3,0,3,2,4, 3)]
-        // [DataRow(0,3,0,3,4,4, 7)]
-        // [DataTestMethod]
-        // public void CheckShapeChangeTest(double xMin, double xMax, double yMin, double yMax, double xDot, double yDot, double expected)
-        // {
-        //     Rectangle rectangle = new Rectangle(xMin, xMax, yMin, yMax);
-        //
-        //     double actual = Rectangle.CheckShapeChange(rectangle,rectangle,xDot,yDot);
-        //     
-        //     Assert.AreEqual(expected,actual);
-        // }
+        
         
         [DataRow(7,2,0)]
         [DataRow(9,2,-2)]
